@@ -44,6 +44,31 @@ function populateSpettri() {
   });
 }
 
+function interpolate(x, y, resolution = 5) {
+  const newX = [];
+  const newY = [];
+
+  for (let i = 0; i < x.length - 1; i++) {
+    const x0 = x[i];
+    const x1 = x[i + 1];
+    const y0 = y[i];
+    const y1 = y[i + 1];
+
+    // numero di punti intermedi: resolution
+    for (let r = 0; r < resolution; r++) {
+      const t = r / resolution;
+      newX.push(x0 + t * (x1 - x0));
+      newY.push(y0 + t * (y1 - y0));
+    }
+  }
+
+  // aggiunge ultimo punto
+  newX.push(x[x.length - 1]);
+  newY.push(y[y.length - 1]);
+
+  return { x: newX, y: newY };
+}
+
 // Calcolo limiti asse Y escludendo outlier
 function getYAxisRange(values) {
   const sorted = [...values].sort((a, b) => a - b);
@@ -83,20 +108,21 @@ document.getElementById('plotBtn').addEventListener('click', async () => {
     }
   });
 
-  // Calcolo limiti escludendo outlier
-  const [yMin, yMax] = getYAxisRange(y);
+  // 🔹 interpolazione (usata nel grafico)
+  const { x: xInterp, y: yInterp } = interpolate(x, y, 10);
+
+  // 🔹 calcolo range su dati interpolati
+  const [yMin, yMax] = getYAxisRange(yInterp);
 
   Plotly.newPlot(plotDiv, [{
-    x: x,
-    y: y,
+    x: xInterp,
+    y: yInterp,
     mode: 'lines',
-    name: file,
-    line: { width: 1 }
+    type: 'scattergl',
+    line: { shape: 'spline', smoothing: 1.3, width: 1 }
   }], {
     title: `${pigment} - ${strumento}`,
     xaxis: { title: 'Wavelength (nm)' },
     yaxis: { title: 'Intensity / Reflectance', range: [yMin, yMax] }
   });
 });
-
-
