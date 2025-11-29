@@ -98,8 +98,10 @@ document.getElementById('plotBtn').addEventListener('click', async () => {
   const x = [], y = [];
 
   dataSection.forEach(line => {
-    const cleaned = line.replace(',', '.').replace(/\s+/g, ' ');
-    const [aStr, bStr] = cleaned.split(' ');
+    // Sostituisci TUTTE le virgole con punti (usa regex con flag g)
+    // e splitta per tab
+    const cleaned = line.replace(/,/g, '.');
+    const [aStr, bStr] = cleaned.split('\t');
     const a = parseFloat(aStr);
     const b = parseFloat(bStr);
     if (!isNaN(a) && !isNaN(b)) {
