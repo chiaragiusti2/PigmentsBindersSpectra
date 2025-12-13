@@ -1,21 +1,27 @@
-async function loadConfig() {
-  const response = await fetch('data/config.json');
-  return response.json();
-}
-
-let config = {};
 const pigmentSelect = document.getElementById('pigmentSelect');
 const strumentoSelect = document.getElementById('strumentoSelect');
-const spettroSelect = document.getElementById('spettroSelect');
+const spectraList = document.getElementById('spectraList');
 const plotDiv = document.getElementById('plot');
 
-loadConfig().then(cfg => {
+let config = {};
+let metadata = {};
+
+async function loadJSON(path) {
+  const r = await fetch(path);
+  return r.json();
+}
+
+Promise.all([
+  loadJSON('data/config.json'),
+  loadJSON('data/metadata.json')
+]).then(([cfg, meta]) => {
   config = cfg;
+  metadata = meta;
+
   Object.keys(config).forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = opt.textContent = p;
-    pigmentSelect.appendChild(opt);
+    pigmentSelect.add(new Option(p, p));
   });
+
   populateStrumenti();
 });
 
@@ -23,108 +29,74 @@ pigmentSelect.addEventListener('change', populateStrumenti);
 strumentoSelect.addEventListener('change', populateSpettri);
 
 function populateStrumenti() {
-  strumentoSelect.innerHTML = "";
-  spettroSelect.innerHTML = "";
-  const strumenti = Object.keys(config[pigmentSelect.value]);
-  strumenti.forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = opt.textContent = s;
-    strumentoSelect.appendChild(opt);
+  strumentoSelect.innerHTML = '';
+  spectraList.innerHTML = '';
+
+  Object.keys(config[pigmentSelect.value]).forEach(s => {
+    strumentoSelect.add(new Option(s, s));
   });
+
+  updateInfo();
   populateSpettri();
 }
 
+
 function populateSpettri() {
-  spettroSelect.innerHTML = "";
-  if (!strumentoSelect.value) return;
-  config[pigmentSelect.value][strumentoSelect.value].forEach(file => {
-    const opt = document.createElement('option');
-    opt.value = opt.textContent = file;
-    spettroSelect.appendChild(opt);
+  spectraList.innerHTML = '';
+  const files = config[pigmentSelect.value][strumentoSelect.value];
+
+  files.forEach(f => {
+    const label = document.createElement('label');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = f;
+    label.appendChild(cb);
+    label.append(' ' + f);
+    spectraList.appendChild(label);
   });
+
+  updateInfo();
 }
 
-function interpolate(x, y, resolution = 5) {
-  const newX = [];
-  const newY = [];
+function updateInfo() {
+  const p = pigmentSelect.value;
+  const s = strumentoSelect.value;
 
-  for (let i = 0; i < x.length - 1; i++) {
-    const x0 = x[i];
-    const x1 = x[i + 1];
-    const y0 = y[i];
-    const y1 = y[i + 1];
+  const meta = metadata[p];
 
-    // numero di punti intermedi: resolution
-    for (let r = 0; r < resolution; r++) {
-      const t = r / resolution;
-      newX.push(x0 + t * (x1 - x0));
-      newY.push(y0 + t * (y1 - y0));
-    }
-  }
-
-  // aggiunge ultimo punto
-  newX.push(x[x.length - 1]);
-  newY.push(y[y.length - 1]);
-
-  return { x: newX, y: newY };
-}
-
-// Calcolo limiti asse Y escludendo outlier
-function getYAxisRange(values) {
-  const sorted = [...values].sort((a, b) => a - b);
-  const low = sorted[Math.floor(sorted.length * 0.01)];
-  const high = sorted[Math.floor(sorted.length * 0.99)];
-  return [low, high];
+  document.getElementById('pigmentName').textContent = p;
+  // document.getElementById('formula').textContent = meta.description.chemical_formula;
+  document.getElementById('pigmentDesc').textContent = meta.description.notes;
+  document.getElementById('instrumentDesc').textContent = meta.instruments[s].description;
 }
 
 document.getElementById('plotBtn').addEventListener('click', async () => {
-  const pigment = pigmentSelect.value;
-  const strumento = strumentoSelect.value;
-  const file = spettroSelect.value;
-  const path = `data/${pigment}/${strumento}/${file}`;
+  const checks = spectraList.querySelectorAll('input:checked');
+  const traces = [];
 
-  const response = await fetch(path);
-  const text = await response.text();
+  for (const cb of checks) {
+    const path = `data/pigments/${pigmentSelect.value}/${strumentoSelect.value}/${cb.value}`;
+    const text = await fetch(path).then(r => r.text());
 
-  // Trova la riga "Begin Spectral Data"
-  const startIndex = text.indexOf('>>>>>Begin Spectral Data<<<<<');
-  const dataSection = text
-    .slice(startIndex)
-    .split('\n')
-    .slice(1)
-    .map(line => line.trim())
-    .filter(line => line.length > 0);
+    const lines = text.split('\n').filter(l => l.trim());
+    const x = [], y = [];
 
-  const x = [], y = [];
+    lines.forEach(l => {
+      const [a, b] = l.replace(/,/g, '.').split('\t');
+      x.push(parseFloat(a));
+      y.push(parseFloat(b));
+    });
 
-  dataSection.forEach(line => {
-    // Sostituisci TUTTE le virgole con punti (usa regex con flag g)
-    // e splitta per tab
-    const cleaned = line.replace(/,/g, '.');
-    const [aStr, bStr] = cleaned.split('\t');
-    const a = parseFloat(aStr);
-    const b = parseFloat(bStr);
-    if (!isNaN(a) && !isNaN(b)) {
-      x.push(a);
-      y.push(b);
-    }
-  });
+    traces.push({
+      x, y,
+      mode: 'lines',
+      name: cb.value
+    });
+  }
 
-  // 🔹 interpolazione (usata nel grafico)
-  const { x: xInterp, y: yInterp } = interpolate(x, y, 50);
-
-  // 🔹 calcolo range su dati interpolati
-  const [yMin, yMax] = getYAxisRange(yInterp);
-
-  Plotly.newPlot(plotDiv, [{
-    x: xInterp,
-    y: yInterp,
-    mode: 'lines',
-    type: 'scattergl',
-    line: { shape: 'spline', smoothing: 1.3, width: 1 }
-  }], {
-    title: `${pigment} - ${strumento}`,
-    xaxis: { title: 'Wavelength (nm)' },
-    yaxis: { title: 'Intensity / Reflectance', range: [yMin, yMax] }
+  Plotly.newPlot(plotDiv, traces, {
+    title: `${pigmentSelect.value} – ${strumentoSelect.value}`,
+    xaxis: { title: 'Wavelength' },
+    yaxis: { title: 'Intensity' }
   });
 });

@@ -1,0 +1,16 @@
+{
+    "Azurite": {
+        "description": {
+            "chemical_formula": "AzzUrr1312",
+            "notes": "Pigmento naturale aazzurro."
+        },
+        "instruments": {
+            "Strumento1": {
+                "description": "FTIR Bruker Vertex 70"
+            },
+            "Raman": {
+                "description": "Raman Renishaw InVia"
+            }
+        }
+    }
+}

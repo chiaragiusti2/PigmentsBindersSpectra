@@ -2,25 +2,44 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Spectral Viewer</title>
+  <title>Database of Spectroscopy Spectra: Pigments and Binders </title>
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
+
+<header>
   <h1>Spectral Viewer</h1>
+</header>
 
-  <label for="pigmentSelect">Pigmento:</label>
-  <select id="pigmentSelect"></select>
+<div class="container">
 
-  <label for="strumentoSelect">Strumento:</label>
-  <select id="strumentoSelect"></select>
+  <aside>
+    <label>Pigment</label>
+    <select id="pigmentSelect"></select>
 
-  <label for="spettroSelect">Spettro:</label>
-  <select id="spettroSelect"></select>
+    <label>Instrument</label>
+    <select id="strumentoSelect"></select>
 
-  <button id="plotBtn">Mostra Spettro</button>
+    <h3>Available Data</h3>
+    <div id="spectraList"></div>
 
-  <div id="plot"></div>
+    <br>
+    <button id="plotBtn">VIEW</button>
+  </aside>
 
-  <script src="script.js"></script>
+  <main>
+    <section id="infoPanel">
+      <h2 id="pigmentName"></h2>
+      <p><strong>Instrument:</strong> <span id="instrumentDesc"></span></p>
+      <p><strong>Description:</strong> <span id="pigmentDesc"></span></p>
+    </section>
+
+    <div id="plot"></div>
+  </main>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
