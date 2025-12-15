@@ -1,13 +1,13 @@
 const pigmentSelect = document.getElementById('pigmentSelect');
-const strumentoSelect = document.getElementById('strumentoSelect');
-const spectraList = document.getElementById('spectraList');
-const plotDiv = document.getElementById('plot');
+const plotsContainer = document.getElementById('plotsContainer');
 
 let config = {};
 let metadata = {};
 
+// ---------------- LOAD JSON ----------------
 async function loadJSON(path) {
   const r = await fetch(path);
+  if (!r.ok) throw new Error(`Errore caricando ${path}`);
   return r.json();
 }
 
@@ -18,85 +18,133 @@ Promise.all([
   config = cfg;
   metadata = meta;
 
-  Object.keys(config).forEach(p => {
-    pigmentSelect.add(new Option(p, p));
-  });
+  const pigments = Object.keys(config);
+  pigments.forEach(p => pigmentSelect.add(new Option(p, p)));
+  pigmentSelect.value = pigments[0];
 
-  populateStrumenti();
+  updateInfo();
+  renderPigment();
+}).catch(console.error);
+
+pigmentSelect.addEventListener('change', () => {
+  updateInfo();
+  renderPigment();
 });
 
-pigmentSelect.addEventListener('change', populateStrumenti);
-strumentoSelect.addEventListener('change', populateSpettri);
+// ---------------- RENDER ----------------
+async function renderPigment() {
 
-function populateStrumenti() {
-  strumentoSelect.innerHTML = '';
-  spectraList.innerHTML = '';
+  const pigment = pigmentSelect.value;
+  plotsContainer.innerHTML = '';
 
-  Object.keys(config[pigmentSelect.value]).forEach(s => {
-    strumentoSelect.add(new Option(s, s));
-  });
+  const instruments = Object.keys(config[pigment] || {});
 
-  updateInfo();
-  populateSpettri();
-}
+  for (const instrument of instruments) {
+    const section = document.createElement('section');
+    section.className = 'instrument-section';
+
+    const title = document.createElement('h3');
+    title.textContent = instrument;
+
+    const desc = document.createElement('p');
+    desc.textContent =
+      metadata[pigment]?.instruments?.[instrument]?.description || '';
+
+    const plotEl = document.createElement('div');
+    plotEl.style.height = '360px';
+
+    section.append(title, desc, plotEl);
+    plotsContainer.appendChild(section);
+
+    const traces = [];
+    let allY = [];
+
+    for (const file of config[pigment][instrument]) {
+      const path = `data/pigments/${pigment}/${instrument}/${file}`;
+      const text = await fetch(path).then(r => r.text());
+
+      const startIndex = text.indexOf('>>>>>Begin Spectral Data<<<<<');
+      if (startIndex === -1) {
+        console.warn('Data section not found in', file);
+        continue; // salta file
+      }
+      const lines = text
+        .slice(startIndex)
+        .split('\n')
+        .slice(1)
+        .map(l => l.trim())
+        .filter(line => line.length > 0);
 
 
-function populateSpettri() {
-  spectraList.innerHTML = '';
-  const files = config[pigmentSelect.value][strumentoSelect.value];
+      const x = [], y = [];
+      lines.forEach(l => {
+        const [a, b] = l.replace(/,/g, '.').split('\t');
+        const xx = parseFloat(a);
+        const yy = parseFloat(b);
+        if (!isNaN(xx) && !isNaN(yy)) {
+          x.push(xx);
+          y.push(yy);
+        }
+      });
+      if (x.length < 2) continue; // evita interpolate su file vuoto
+      const { x: xi, y: yi } = interpolate(x, y, 10);
+      allY.push(...yi);
 
-  files.forEach(f => {
-    const label = document.createElement('label');
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.value = f;
-    label.appendChild(cb);
-    label.append(' ' + f);
-    spectraList.appendChild(label);
-  });
+      traces.push({
+        x: xi,
+        y: yi,
+        mode: 'lines',
+        type: 'scattergl',
+        name: file,
+        line: { width: 1 }
+      });
+    }
 
-  updateInfo();
-}
+    const [yMin, yMax] = getYAxisRange(allY);
 
-function updateInfo() {
-  const p = pigmentSelect.value;
-  const s = strumentoSelect.value;
-
-  const meta = metadata[p];
-
-  document.getElementById('pigmentName').textContent = p;
-  // document.getElementById('formula').textContent = meta.description.chemical_formula;
-  document.getElementById('pigmentDesc').textContent = meta.description.notes;
-  document.getElementById('instrumentDesc').textContent = meta.instruments[s].description;
-}
-
-document.getElementById('plotBtn').addEventListener('click', async () => {
-  const checks = spectraList.querySelectorAll('input:checked');
-  const traces = [];
-
-  for (const cb of checks) {
-    const path = `data/pigments/${pigmentSelect.value}/${strumentoSelect.value}/${cb.value}`;
-    const text = await fetch(path).then(r => r.text());
-
-    const lines = text.split('\n').filter(l => l.trim());
-    const x = [], y = [];
-
-    lines.forEach(l => {
-      const [a, b] = l.replace(/,/g, '.').split('\t');
-      x.push(parseFloat(a));
-      y.push(parseFloat(b));
-    });
-
-    traces.push({
-      x, y,
-      mode: 'lines',
-      name: cb.value
+    Plotly.newPlot(plotEl, traces, {
+      margin: { t: 20 },
+      xaxis: { title: 'Wavelength (nm)' },
+      yaxis: {
+        title: 'Intensity / Reflectance',
+        range: [yMin, yMax]
+      },
+      showlegend: true
     });
   }
+}
 
-  Plotly.newPlot(plotDiv, traces, {
-    title: `${pigmentSelect.value} – ${strumentoSelect.value}`,
-    xaxis: { title: 'Wavelength' },
-    yaxis: { title: 'Intensity' }
-  });
-});
+// ---------------- METADATA ----------------
+function updateInfo() {
+  const p = pigmentSelect.value;
+  document.getElementById('pigmentName').textContent = p;
+  document.getElementById('pigmentDesc').textContent =
+    metadata[p]?.description?.notes || '';
+}
+
+// ---------------- SCIENCE ----------------
+function interpolate(x, y, resolution = 50) {
+  if (x.length < 2) return { x, y };
+  const newX = [], newY = [];
+  for (let i = 0; i < x.length - 1; i++) {
+    const dx = x[i + 1] - x[i];
+    const dy = y[i + 1] - y[i];
+    for (let r = 0; r < resolution; r++) {
+      const t = r / resolution;
+      newX.push(x[i] + t * dx);
+      newY.push(y[i] + t * dy);
+    }
+  }
+  newX.push(x.at(-1));
+  newY.push(y.at(-1));
+  return { x: newX, y: newY };
+}
+
+
+function getYAxisRange(values) {
+  const sorted = [...values].sort((a, b) => a - b);
+  return [
+    sorted[Math.floor(sorted.length * 0.01)],
+    sorted[Math.floor(sorted.length * 0.99)]
+  ];
+}

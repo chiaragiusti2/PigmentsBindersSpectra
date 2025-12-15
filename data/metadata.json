@@ -1,16 +1,28 @@
 {
     "Azurite": {
         "description": {
-            "chemical_formula": "AzzUrr1312",
-            "notes": "Pigmento naturale aazzurro."
+            "notes": "Pigmento naturale azzurro."
         },
         "instruments": {
             "Strumento1": {
-                "description": "FTIR Bruker Vertex 70"
+                "description": "Caratteristiche tecniche e chimiche del pigmento, storia, utilizzi"
             },
             "Raman": {
-                "description": "Raman Renishaw InVia"
+                "description": "Esempio descrizione Raman"
             }
         }
-    }
+    },
+     "Cinabro": {
+        "description": {
+            "notes": "Pigmento naturale bla bla bla."
+        },
+        "instruments": {
+            "Strumento1": {
+                "description": "Caratteristiche tecniche e chimiche del pigmento, storia, utilizzi"
+            },
+            "Raman": {
+                "description": "Esempio descrizione Raman"
+            }
+        }
+    },
 }
