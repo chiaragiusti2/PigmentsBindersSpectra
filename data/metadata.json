@@ -4,11 +4,14 @@
             "notes": "Pigmento naturale azzurro."
         },
         "instruments": {
-            "Strumento1": {
+            "FORS": {
                 "description": "Caratteristiche tecniche e chimiche del pigmento, storia, utilizzi"
             },
-            "Raman": {
+            "RAMAN": {
                 "description": "Esempio descrizione Raman"
+            },
+            "IR": {
+                "description": "Esempio descrizione IR"
             }
         }
     },
