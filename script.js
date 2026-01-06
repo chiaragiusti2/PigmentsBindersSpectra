@@ -3,6 +3,7 @@ const plotsContainer = document.getElementById('plotsContainer');
 
 let config = {};
 let metadata = {};
+let dataCache = {}; // cache parsed data: dataCache[pigment][instrument][file] = {x,y}
 
 // ---------------- LOAD JSON / INIT ----------------
 async function loadJSON(path) {
@@ -11,7 +12,7 @@ async function loadJSON(path) {
   return r.json();
 }
 
-async function listDirectory(path) {
+async function listDirectory(path, { dirsOnly = false, filesOnly = false } = {}) {
   // fetch directory listing (expects server directory index)
   const r = await fetch(path);
   if (!r.ok) throw new Error(`Errore leggendo ${path}`);
@@ -21,7 +22,18 @@ async function listDirectory(path) {
   const anchors = Array.from(doc.querySelectorAll('a'))
     .map(a => a.getAttribute('href'))
     .filter(h => h && h !== '../')
-    .map(h => h.replace(/\/+$/, ''));
+    // skip hidden/system files like .DS_Store
+    .filter(h => !h.startsWith('.'))
+    .map(h => {
+      const isDir = h.endsWith('/');
+      // when requesting dirsOnly, keep only directory anchors
+      if (dirsOnly && !isDir) return null;
+      // when requesting filesOnly, keep only non-directory anchors
+      if (filesOnly && isDir) return null;
+      // normalize by removing trailing slash
+      return h.replace(/\/+$/, '');
+    })
+    .filter(Boolean);
   return anchors;
 }
 
@@ -42,7 +54,7 @@ async function init() {
   // discover pigments from data/pigments/ and merge with config keys
   let discovered = [];
   try {
-    discovered = await listDirectory('data/pigments/');
+    discovered = await listDirectory('data/pigments/', { dirsOnly: true });
   } catch (e) {
     console.warn('Could not list data/pigments/, falling back to config keys', e);
   }
@@ -75,7 +87,7 @@ async function renderPigment() {
   // discover instrument folders inside data/pigments/<pigment>/
   let discovered = [];
   try {
-    discovered = await listDirectory(`data/pigments/${pigment}/`);
+    discovered = await listDirectory(`data/pigments/${pigment}/`, { dirsOnly: true });
   } catch (e) {
     console.warn('Could not list pigment folder', e);
   }
@@ -98,31 +110,67 @@ async function renderPigment() {
     const plotEl = document.createElement('div');
     plotEl.style.height = '360px';
 
-    section.append(title, desc, plotEl);
+    // file checklist container
+    const filesContainer = document.createElement('div');
+    filesContainer.className = 'files-container';
+
+    section.append(title, desc, filesContainer, plotEl);
     plotsContainer.appendChild(section);
 
     // gather files: prefer config list, otherwise read directory
     let files = [];
     if (Array.isArray(config[pigment]?.[instrument])) {
       files = config[pigment][instrument];
-    } else {
+      } else {
       try {
-        files = await listDirectory(`data/pigments/${pigment}/${instrument}/`);
+        files = await listDirectory(`data/pigments/${pigment}/${instrument}/`, { filesOnly: true });
       } catch (e) {
         console.warn('Could not list instrument folder', pigment, instrument, e);
         files = [];
       }
     }
 
-    const traces = [];
+    // ensure cache structure
+    dataCache[pigment] = dataCache[pigment] || {};
+    dataCache[pigment][instrument] = dataCache[pigment][instrument] || {};
+
+    const parsedData = {}; // file -> {x,y,displayName}
     let allY = [];
 
+    // create checkboxes first so UI appears quickly
+    files.forEach(f => {
+      if (!f) return;
+      const name = decodeURIComponent(f);
+      const id = `chk-${pigment}-${instrument}-${name}`.replace(/[^a-zA-Z0-9-_\.]/g, '_');
+      const label = document.createElement('label');
+      label.style.display = 'block';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = true;
+      cb.dataset.file = name;
+      cb.id = id;
+      const span = document.createElement('span');
+      span.textContent = ' ' + name;
+      label.appendChild(cb);
+      label.appendChild(span);
+      filesContainer.appendChild(label);
+      cb.addEventListener('change', () => updatePlotForInstrument());
+    });
+
+    // load and parse files (cached if possible)
     for (const file of files) {
       if (!file) continue;
-      // skip directory entries if any
       if (file.endsWith('/')) continue;
-      const safeFile = decodeURIComponent(file);
-      const path = `data/pigments/${pigment}/${instrument}/${safeFile}`;
+      const name = decodeURIComponent(file);
+
+      // use cache if present
+      if (dataCache[pigment][instrument][name]) {
+        parsedData[name] = dataCache[pigment][instrument][name];
+        allY.push(...parsedData[name].y);
+        continue;
+      }
+
+      const path = `data/pigments/${pigment}/${instrument}/${name}`;
       let text;
       try {
         const r = await fetch(path);
@@ -135,23 +183,14 @@ async function renderPigment() {
 
       const { x, y } = parseDataText(text);
       if (x.length < 2) continue;
-
-      // sort by x ascending
       const pairs = x.map((xx, i) => [xx, y[i]]).sort((a, b) => a[0] - b[0]);
       const xs = pairs.map(p => p[0]);
       const ys = pairs.map(p => p[1]);
-
       const { x: xi, y: yi } = interpolate(xs, ys, 10);
-      allY.push(...yi);
 
-      traces.push({
-        x: xi,
-        y: yi,
-        mode: 'lines',
-        type: 'scattergl',
-        name: safeFile,
-        line: { width: 1 }
-      });
+      parsedData[name] = { x: xi, y: yi, displayName: name };
+      dataCache[pigment][instrument][name] = parsedData[name];
+      allY.push(...yi);
     }
 
     const layout = {
@@ -160,13 +199,31 @@ async function renderPigment() {
       xaxis: { title: instrument.toLowerCase().includes('ft') ? 'Wavenumber (cm^-1)' : 'Wavelength (nm)' },
       yaxis: { title: 'Intensity / Reflectance' }
     };
-
     if (allY.length > 0) {
       const [yMin, yMax] = getYAxisRange(allY);
       layout.yaxis.range = [yMin, yMax];
     }
 
-    Plotly.newPlot(plotEl, traces, layout);
+    function updatePlotForInstrument() {
+      const checkboxes = filesContainer.querySelectorAll('input[type=checkbox]');
+      const traces = [];
+      for (const cb of checkboxes) {
+        if (!cb.checked) continue;
+        const fname = cb.dataset.file;
+        const d = parsedData[fname] || dataCache[pigment][instrument][fname];
+        if (!d) continue;
+        traces.push({ x: d.x, y: d.y, mode: 'lines', type: 'scattergl', name: fname, line: { width: 1 } });
+      }
+      if (traces.length === 0) {
+        Plotly.purge(plotEl);
+        plotEl.innerHTML = '<em>No traces selected</em>';
+        return;
+      }
+      Plotly.react(plotEl, traces, layout);
+    }
+
+    // initial plot
+    updatePlotForInstrument();
   }
 }
 
