@@ -6,7 +6,6 @@ let metadata = {};
 let siteContent = {};
 // cache for parsed data: dataCache[pigment][instrument][file] = {x,y}
 let dataCache = {};
-let dataCache = {}; // cache parsed data: dataCache[pigment][instrument][file] = {x,y}
 
 // ---------------- LOAD JSON / INIT ----------------
 async function loadJSON(path) {
