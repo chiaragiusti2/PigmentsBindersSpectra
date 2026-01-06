@@ -261,13 +261,18 @@ async function renderPigment() {
     updatePlotForInstrument();
   }
 
-  // global intro (above plots)
+  // global intro (below main title/header)
   let introEl = document.getElementById('globalIntro');
   if (!introEl) {
     introEl = document.createElement('div');
     introEl.id = 'globalIntro';
-    const main = document.querySelector('main');
-    if (main) main.insertBefore(introEl, main.firstChild);
+    const header = document.querySelector('header');
+    if (header && header.parentNode) {
+      header.parentNode.insertBefore(introEl, header.nextSibling);
+    } else {
+      const main = document.querySelector('main');
+      if (main) main.insertBefore(introEl, main.firstChild);
+    }
   }
   introEl.textContent = siteContent.intro || '';
 
