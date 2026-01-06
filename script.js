@@ -3,6 +3,9 @@ const plotsContainer = document.getElementById('plotsContainer');
 
 let config = {};
 let metadata = {};
+let siteContent = {};
+// cache for parsed data: dataCache[pigment][instrument][file] = {x,y}
+let dataCache = {};
 let dataCache = {}; // cache parsed data: dataCache[pigment][instrument][file] = {x,y}
 
 // ---------------- LOAD JSON / INIT ----------------
@@ -49,6 +52,13 @@ async function init() {
   } catch (e) {
     console.warn('metadata.json not found or broken', e);
     metadata = {};
+  }
+
+  try {
+    siteContent = await loadJSON('data/site_content.json');
+  } catch (e) {
+    console.warn('site_content.json not found; using defaults', e);
+    siteContent = {};
   }
 
   // discover pigments from data/pigments/ and merge with config keys
@@ -131,7 +141,7 @@ async function renderPigment() {
     title.textContent = instrument;
 
     const desc = document.createElement('p');
-    desc.textContent = metadata[pigment]?.instruments?.[instrument]?.description || '';
+    desc.textContent = siteContent.instruments?.[instrument] || metadata[pigment]?.instruments?.[instrument]?.description || '';
 
     const plotEl = document.createElement('div');
     plotEl.style.height = '360px';
@@ -251,6 +261,26 @@ async function renderPigment() {
     // initial plot
     updatePlotForInstrument();
   }
+
+  // global intro (above plots)
+  let introEl = document.getElementById('globalIntro');
+  if (!introEl) {
+    introEl = document.createElement('div');
+    introEl.id = 'globalIntro';
+    const main = document.querySelector('main');
+    if (main) main.insertBefore(introEl, main.firstChild);
+  }
+  introEl.textContent = siteContent.intro || '';
+
+  // global footer
+  if (siteContent.footer) {
+    let f = document.querySelector('footer');
+    if (!f) {
+      f = document.createElement('footer');
+      document.body.appendChild(f);
+    }
+    f.textContent = siteContent.footer;
+  }
 }
 
 function parseDataText(text) {
@@ -285,9 +315,14 @@ function parseDataText(text) {
 // ---------------- METADATA ----------------
 function updateInfo() {
   const p = pigmentSelect.value;
-  document.getElementById('pigmentName').textContent = p;
+  // page title and header
+  if (siteContent.pageTitle) document.title = siteContent.pageTitle;
+  const hdr = document.querySelector('header h1');
+  if (hdr) hdr.textContent = siteContent.header || hdr.textContent;
+
+  document.getElementById('pigmentName').textContent = siteContent.pigments?.[p]?.title || p;
   document.getElementById('pigmentDesc').textContent =
-    metadata[p]?.description?.notes || '';
+    siteContent.pigments?.[p]?.description || metadata[p]?.description?.notes || '';
 }
 
 // ---------------- SCIENCE ----------------

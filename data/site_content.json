@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Pigments & Spectra",
+  "header": "Pigments & Spectra — Interactive Spectral Library",
+  "intro": "Explore spectral measurements of historical pigments recorded with various instruments.",
+  "footer": "Data and metadata provided for research and teaching purposes.",
+  "pigments": {
+    "Azurite": {
+      "title": "Azurite",
+      "description": "Azurite is a natural blue copper carbonate mineral historically used as a pigment. Use the controls to compare spectra acquired with different binders and instruments."
+    }
+  },
+  "instruments": {
+    "FORS": "FORS (Fiber Optic Reflectance Spectroscopy) provides reflectance vs wavelength in the visible/near-infrared range.",
+    "FT-IR": "FT-IR (Fourier-transform infrared spectroscopy) measures absorption in the mid-infrared (wavenumber) region.",
+    "Raman": "Raman spectroscopy provides vibrational spectra useful for identifying molecular species."
+  }
+}
