@@ -95,7 +95,33 @@ async function renderPigment() {
   const configInstruments = Object.keys(config[pigment] || {});
   // determine instruments as union of configured and discovered (filtered)
   const instrumentsSet = new Set([...configInstruments, ...discovered]);
-  const instruments = Array.from(instrumentsSet).sort();
+  let instruments = Array.from(instrumentsSet).sort();
+
+  // filter out instruments that neither have a directory nor any existing configured files
+  const filtered = [];
+  for (const instr of instruments) {
+    if (discovered.includes(instr)) { filtered.push(instr); continue; }
+    // otherwise check if config lists files that actually exist
+    const cfgFiles = config[pigment]?.[instr];
+    let hasExisting = false;
+    if (Array.isArray(cfgFiles) && cfgFiles.length > 0) {
+      for (const f of cfgFiles) {
+        const p = `data/pigments/${pigment}/${instr}/${encodeURIComponent(f)}`;
+        try {
+          // try to fetch the file HEAD to see if it exists
+          // some servers may not support HEAD; use GET but avoid reading body
+          // we'll perform a GET but only check response.ok
+          // eslint-disable-next-line no-await-in-loop
+          const res = await fetch(p, { method: 'GET' });
+          if (res.ok) { hasExisting = true; break; }
+        } catch (e) {
+          /* ignore network errors */
+        }
+      }
+    }
+    if (hasExisting) filtered.push(instr);
+  }
+  instruments = filtered;
 
   for (const instrument of instruments) {
     const section = document.createElement('section');
