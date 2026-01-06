@@ -60,6 +60,19 @@ async function init() {
     siteContent = {};
   }
 
+  // normalize pigments: support both object map and array list
+  if (Array.isArray(siteContent.pigments)) {
+    const map = {};
+    siteContent.pigments.forEach(item => {
+      if (!item) return;
+      const key = item.name || item.title;
+      if (key) map[key] = item;
+    });
+    siteContent.pigmentsMap = map;
+  } else {
+    siteContent.pigmentsMap = siteContent.pigments || {};
+  }
+
   // discover pigments from data/pigments/ and merge with config keys
   let discovered = [];
   try {
