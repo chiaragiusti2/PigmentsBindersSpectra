@@ -1,38 +1,60 @@
-body {
-  font-family: system-ui, sans-serif;
-  margin: 0;
+:root{
+  --bg:#f6f8fa;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#0f766e; /* teal */
+  --accent-2:#12345b; /* deep navy */
+  --border:rgba(16,24,40,0.08);
+  --shadow: 0 6px 18px rgba(16,24,40,0.06);
+  --radius:10px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:#0f172a}
+header{padding:1.25rem 1.5rem;background:linear-gradient(90deg, rgba(18,52,91,0.95), rgba(15,118,110,0.95));color:#fff}
+header h1{margin:0;font-weight:600;letter-spacing:0.4px}
+header .subtitle{opacity:0.9;margin-top:0.25rem;font-size:0.95rem}
+
+.container{display:flex;gap:1rem;max-width:1200px;margin:1.25rem auto;padding:0 1rem}
+
+aside{width:320px;background:var(--card);border-radius:var(--radius);padding:1rem;border:1px solid var(--border);box-shadow:var(--shadow);height:calc(100vh - 140px);overflow:auto}
+main{flex:1}
+
+#globalIntro{max-width:1200px;margin:0.75rem auto;padding:0 1rem;color:var(--muted);text-align:center}
+
+.panel-title{font-size:0.95rem;color:var(--accent-2);font-weight:600;margin-bottom:0.5rem}
+
+/* pigment info */
+#infoPanel{margin-top:0.5rem}
+#pigmentName{font-size:1.25rem;margin:0}
+#pigmentImage{max-width:100%;border-radius:8px;border:1px solid var(--border);display:block;margin:0.5rem 0}
+#pigmentDesc{color:var(--muted);font-size:0.95rem}
+
+.select-row{display:flex;gap:0.5rem;align-items:center}
+select#pigmentSelect{width:100%;padding:0.5rem;border-radius:6px;border:1px solid var(--border);background:linear-gradient(180deg,#fff,#fcfdff)}
+
+/* instrument / plot cards */
+.instrument-section{display:grid;grid-template-columns:220px 1fr;gap:1rem;margin-bottom:1rem;background:var(--card);padding:1rem;border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow);align-items:start}
+.instrument-section h3,.instrument-section p{grid-column:1/-1;margin:0}
+.instrument-section h3{font-size:1.05rem;color:var(--accent-2);margin-bottom:0.25rem}
+.instrument-section p{color:var(--muted);font-size:0.92rem;margin-bottom:0.5rem}
+
+.files-container{max-height:260px;overflow:auto;padding-right:0.5rem;border-right:1px dashed rgba(16,24,40,0.04)}
+.files-container label{display:flex;align-items:center;gap:0.5rem;padding:0.25rem 0;border-bottom:1px solid rgba(15,23,42,0.02)}
+.files-container input[type=checkbox]{width:16px;height:16px;border-radius:3px;border:1px solid rgba(15,23,42,0.08)}
+.files-container span{font-size:0.88rem;color:#0f172a}
+
+.instrument-section > div[style] { /* plot element */
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border-radius:8px;padding:0.5rem;border:1px solid var(--border);min-height:320px
 }
 
-header {
-  padding: 1rem;
-  background: #222;
-  color: white;
+/* responsive */
+@media (max-width:900px){
+  .container{flex-direction:column}
+  aside{width:auto;height:auto}
+  .instrument-section{grid-template-columns:1fr;}
+  .files-container{border-right:none;border-bottom:1px dashed rgba(16,24,40,0.04);max-height:160px}
 }
 
-.container {
-  display: flex;
-}
-
-aside {
-  width: 280px;
-  padding: 1rem;
-  border-right: 1px solid #ccc;
-}
-
-main {
-  flex: 1;
-  padding: 1rem;
-}
-
-.instrument-section {
-  margin-bottom: 3rem;
-}
-
-.instrument-section h3 {
-  margin-bottom: 0.2rem;
-}
-
-.instrument-section p {
-  margin-top: 0;
-  color: #555;
-}
+footer{max-width:1200px;margin:1rem auto;padding:0.75rem 1rem;color:var(--muted);font-size:0.9rem;text-align:center}
