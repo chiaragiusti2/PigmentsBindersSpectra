@@ -327,6 +327,45 @@ function updateInfo() {
   document.getElementById('pigmentName').textContent = siteContent.pigments?.[p]?.title || p;
   document.getElementById('pigmentDesc').textContent =
     siteContent.pigments?.[p]?.description || metadata[p]?.description?.notes || '';
+
+  // attempt to load pigment image asynchronously (matches exact pigment name)
+  loadPigmentImage(p).catch(() => {});
+}
+
+async function loadPigmentImage(pigment) {
+  const containerTarget = document.getElementById('pigmentName');
+  if (!containerTarget) return;
+
+  // remove previous image if present
+  const existing = document.getElementById('pigmentImage');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+  const exts = ['png', 'jpg', 'jpeg', 'webp', 'svg'];
+  for (const ext of exts) {
+    const filename = `${encodeURIComponent(pigment)}.${ext}`;
+    const path = `data/images/${filename}`;
+    try {
+      const res = await fetch(path);
+      if (!res.ok) continue;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const img = document.createElement('img');
+      img.id = 'pigmentImage';
+      img.src = url;
+      img.alt = pigment;
+      img.style.maxWidth = '100%';
+      img.style.display = 'block';
+      img.style.margin = '0.3em 0';
+      // insert after pigmentName
+      const nameEl = document.getElementById('pigmentName');
+      if (nameEl && nameEl.parentNode) {
+        nameEl.parentNode.insertBefore(img, nameEl.nextSibling);
+      }
+      return;
+    } catch (e) {
+      // try next extension
+    }
+  }
 }
 
 // ---------------- SCIENCE ----------------
