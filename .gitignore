@@ -1,0 +1,11 @@
+# macOS system files
+.DS_Store
+
+# Node / build artifacts
+node_modules/
+dist/
+build/
+
+# Editor directories
+.vscode/
+.idea/
