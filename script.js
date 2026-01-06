@@ -229,8 +229,9 @@ async function renderPigment() {
     }
 
     const layout = {
-      margin: { t: 20 },
+      margin: { t: 20, b: 80 },
       showlegend: true,
+      legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: -0.25 },
       xaxis: { title: instrument.toLowerCase().includes('ft') ? 'Wavenumber (cm^-1)' : 'Wavelength (nm)' },
       yaxis: { title: 'Intensity / Reflectance' }
     };
