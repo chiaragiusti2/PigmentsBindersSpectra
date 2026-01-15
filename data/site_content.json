@@ -1,23 +1,23 @@
 {
   "pageTitle": "Pigments & Spectra",
   "header": "Pigments & Spectra — Interactive Spectral Library",
-  "intro": "Explore spectral measurements of historical pigments recorded with various instruments.",
-  "footer": "Data and metadata provided for research and teaching purposes.",
+  "intro": "### Explore spectral measurements of historical pigments recorded with various instruments.\nSupport simple formatting: **bold**, _italic_, and line breaks.",
+  "footer": "Data and metadata provided for research and teaching purposes.\n**Note:** Use formatting in descriptions with **bold**, _italic_, and \\n for line breaks.",
   "pigments": [
     {
       "name": "Azurite",
       "title": "Azurite",
-      "description": "Azurite is a natural blue copper carbonate mineral historically used as a pigment. Use the controls to compare spectra acquired with different binders and instruments."
+      "description": "**Natural blue copper carbonate mineral**\nHistorically used as a pigment.\nUse the controls to compare spectra acquired with different _binders_ and instruments."
     },
     {
       "name": "Chrysocolla",
       "title": "Chrysocolla",
-      "description": "Chrysocolla is a hydrated copper silicate mineral historically used as a pigment. Use the controls to compare spectra acquired with different binders and instruments."
+      "description": "**Hydrated copper silicate mineral**\nHistorically used as a pigment.\nUse the controls to compare spectra acquired with different _binders_ and instruments."
     }
   ],
   "instruments": {
-    "FORS": "FORS (Fiber Optic Reflectance Spectroscopy) provides reflectance vs wavelength in the visible/near-infrared range.",
-    "FT-IR": "FT-IR (Fourier-transform infrared spectroscopy) measures absorption in the mid-infrared (wavenumber) region.",
-    "Raman": "Raman spectroscopy provides vibrational spectra useful for identifying molecular species."
+    "FORS": "**FORS** (Fiber Optic Reflectance Spectroscopy)\nProvides reflectance vs wavelength in the _visible/near-infrared_ range.",
+    "FT-IR": "**FT-IR** (Fourier-transform infrared spectroscopy)\nMeasures _absorption_ in the _mid-infrared_ (wavenumber) region.",
+    "Raman": "**Raman spectroscopy**\nProvides _vibrational spectra_ useful for identifying molecular species."
   }
 }

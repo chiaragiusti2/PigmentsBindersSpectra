@@ -2,7 +2,6 @@ const pigmentSelect = document.getElementById('pigmentSelect');
 const plotsContainer = document.getElementById('plotsContainer');
 
 let config = {};
-let metadata = {};
 let siteContent = {};
 // cache for parsed data: dataCache[pigment][instrument][file] = {x,y}
 let dataCache = {};
@@ -46,13 +45,6 @@ async function init() {
     console.warn('config.json not found or broken, continuing with discovery', e);
     config = {};
   }
-  try {
-    metadata = await loadJSON('data/metadata.json');
-  } catch (e) {
-    console.warn('metadata.json not found or broken', e);
-    metadata = {};
-  }
-
   try {
     siteContent = await loadJSON('data/site_content.json');
   } catch (e) {
@@ -153,7 +145,7 @@ async function renderPigment() {
     title.textContent = instrument;
 
     const desc = document.createElement('p');
-    desc.textContent = siteContent.instruments?.[instrument] || metadata[pigment]?.instruments?.[instrument]?.description || '';
+    desc.innerHTML = formatText(siteContent.instruments?.[instrument] || siteContent.pigmentsMap?.[pigment]?.instruments?.[instrument]?.description || '');
 
     const plotEl = document.createElement('div');
     plotEl.style.height = '360px';
@@ -288,7 +280,7 @@ async function renderPigment() {
       if (main) main.insertBefore(introEl, main.firstChild);
     }
   }
-  introEl.textContent = siteContent.intro || '';
+  introEl.innerHTML = formatText(siteContent.intro || '');
 
   // global footer
   if (siteContent.footer) {
@@ -297,7 +289,7 @@ async function renderPigment() {
       f = document.createElement('footer');
       document.body.appendChild(f);
     }
-    f.textContent = siteContent.footer;
+    f.innerHTML = formatText(siteContent.footer);
   }
 }
 
@@ -336,11 +328,11 @@ function updateInfo() {
   // page title and header
   if (siteContent.pageTitle) document.title = siteContent.pageTitle;
   const hdr = document.querySelector('header h1');
-  if (hdr) hdr.textContent = siteContent.header || hdr.textContent;
+  if (hdr) hdr.innerHTML = formatText(siteContent.header || hdr.textContent);
 
-  document.getElementById('pigmentName').textContent = siteContent.pigments?.[p]?.title || p;
-  document.getElementById('pigmentDesc').textContent =
-    siteContent.pigments?.[p]?.description || metadata[p]?.description?.notes || '';
+  document.getElementById('pigmentName').innerHTML = formatText(siteContent.pigmentsMap?.[p]?.title || p);
+  document.getElementById('pigmentDesc').innerHTML =
+    formatText(siteContent.pigmentsMap?.[p]?.description || '');
 
   // attempt to load pigment image asynchronously (matches exact pigment name)
   loadPigmentImage(p).catch(() => {});
@@ -407,4 +399,13 @@ function getYAxisRange(values) {
     sorted[Math.floor(sorted.length * 0.01)],
     sorted[Math.floor(sorted.length * 0.99)]
   ];
+}
+
+// simple formatting parser: converts **bold**, _italic_, and \n to HTML
+function formatText(text) {
+  if (!text) return '';
+  return text
+    .replace(/\n/g, '<br>')
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/_(.+?)_/g, '<em>$1</em>');
 }
