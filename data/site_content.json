@@ -1,15 +1,8 @@
 {
-<<<<<<< HEAD
-  "pageTitle": "Pigments & Spectra",
-  "header": "Pigments & Spectra — Interactive Spectral Library",
-  "intro": "### Explore spectral measurements of historical pigments recorded with various instruments.\nSupport simple formatting: **bold**, _italic_, and line breaks.",
-  "footer": "Data and metadata provided for research and teaching purposes.\n**Note:** Use formatting in descriptions with **bold**, _italic_, and \\n for line breaks.",
-=======
   "pageTitle": "Pigments & Binders",
   "header": "Pigments & Binders — Interactive Spectral Library",
   "intro": "Explore spectral measurements of historical painting materials recorded with various instruments.",
   "footer": "Data and metadata provided for research and teaching purposes.",
->>>>>>> 728dff90c450fa0041157ad10906465a1430cdc5
   "pigments": [
     {
       "name": "Azurite",
