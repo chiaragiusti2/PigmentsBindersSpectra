@@ -12,13 +12,18 @@
     {
       "name": "Chrysocolla",
       "title": "Chrysocolla",
-      "description": "**Chemical Formula**\nCaCuSi4O10\n**Period of use in Art**\nFrom the 3rd millennium BC until the fall of the Roman Empire.\n**Description**\nChrysocolla is a hydrated copper silicate mineral occasionally used as a blue-green pigment. It forms together with basic copper carbonates (azurite and malachite) as a secondary deposit, slightly crystalline and on copper deposits with an encrusted appearance. The widespread use of this mineral as a pigment is uncertain, due to its variable optical characteristics and degree of crystallinity, which can make it difficult to determine its presence. Pliny, in his _Naturalis Historia_, mentions it as an ingredient used to solder gold, as suggested by its name derived from the Greek words meaning gold (chrysos) and glue (kolla)."
-    }
+      "description": "**Chemical Formula**\n(Cu,Al)2H2Si2O5(OH)4·nH2O (variable composition)\n**Period of use in Art**\nFrom Antiquity to 17th century\n**Description**\nChrysocolla is a hydrated copper silicate mineral occasionally used as a blue-green pigment. It forms together with basic copper carbonates (azurite and malachite) as a secondary deposit, slightly crystalline and on copper deposits with an encrusted appearance. The widespread use of this mineral as a pigment is uncertain, due to its variable optical characteristics and degree of crystallinity, which can make it difficult to determine its presence. Pliny, in his _Naturalis Historia_, mentions it as an ingredient used to solder gold, as suggested by its name derived from the Greek words meaning gold (chrysos) and glue (kolla)."
+    },
      {
       "name": "Egyptian Blue",
       "title": "Egyptian Blue",
-      "description": "**Chemical Formula**\n(Cu,Al)2H2Si2O5(OH)4·nH2O (variable composition)\n**Period of use in Art**\nFrom Antiquity to 17th century\n**Description**\nEgyptian blue is the first known synthetic pigment, produced by heating a mixture of silica, lime, copper compounds, and alkali. It is chemically stable and exhibits characteristic luminescence under infrared radiation, a property widely used for its identification in archaeological contexts. The chemical composition of Egyptian blue corresponds to the mineral cuprorivaite, but since it is an amorphous glass, alongside cuprorivaite there are areas with unreacted quartz and glassy areas."
-    }
+      "description": "**Chemical Formula**\nCaCuSi4O10\n**Period of use in Art**\nFrom the 3rd millennium BC until the fall of the Roman Empire.\n**Description**\nEgyptian blue is the first known synthetic pigment, produced by heating a mixture of silica, lime, copper compounds, and alkali. It is chemically stable and exhibits characteristic luminescence under infrared radiation, a property widely used for its identification in archaeological contexts. The chemical composition of Egyptian blue corresponds to the mineral cuprorivaite, but since it is an amorphous glass, alongside cuprorivaite there are areas with unreacted quartz and glassy areas."
+    },
+     {
+      "name": "Lapis Lazuli",
+      "title": "Lapis Lazuli",
+      "description": "**Chemical Formula**\n(Na,Ca)8(AlSiO4)6(S,SO4,Cl)2\n**Period of use in Art**\nFrom Antiquity until the 18th century, replaced by artificial Ultramarine\n**Description**\nThe pigment Lapis lazuli, also called natural ultramarine, comes from the precious mineral lazurite, imported mainly from Afghanistan (hence the name _ultra_ (beyond) _maris_ (sea). The mineral is an intense blue, but when ground it produces a semi-transparent grayish-blue powder because it contains many transparent compounds. For this reason, the preparation of the pigment has been gradually refined using purification methods designed to extract the intense blue. The pigment was therefore very expensive, which is why its use in painting was often reserved for works of a certain value. Its first use in painting seems to date back to the 6th-7th century AD in Afghanistan; although the pigment was known to the Egyptians, Greeks, and Romans, they had the alternative of Egyptian blue and used it more as an ornamental stone."
+    },
   ],
   "instruments": {
     "FORS": "**FORS** (Fiber Optic Reflectance Spectroscopy)\nProvides reflectance vs wavelength in the _visible/near-infrared_ range.",
