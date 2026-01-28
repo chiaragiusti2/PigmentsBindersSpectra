@@ -1,0 +1,368 @@
+{
+  "Azurite": {
+    "FORS": [
+      "azuriteWhite_albume.csv",
+      "azuriteWhite_arabicgum.csv",
+      "azuriteWhite_casein.csv",
+      "azuriteWhite_fresco.csv",
+      "azuriteWhite_yolk.csv"
+    ],
+    "FT-IR": [
+      "azurite_albume.csv",
+      "azurite_arabicgum.csv",
+      "azurite_casein.csv",
+      "azurite_fresco.csv",
+      "azurite_yolk.csv"
+    ],
+    "Raman": [
+      "azurite_arabicgum.csv",
+      "azurite_casein.csv",
+      "azurite_fresco.csv",
+      "azurite_yolk.csv",
+      "azzurrite_albume.spc"
+    ]
+  },
+  "Bitumen": {
+    "FORS": [
+      "bitumen_albumen.csv",
+      "bitumen_arabicgum.csv",
+      "bitumen_casein.csv",
+      "bitumen_fresco.csv",
+      "bitumen_yolk.csv"
+    ],
+    "FT-IR": [
+      "bitumen_albumen.csv",
+      "bitumen_arabicgum.csv",
+      "bitumen_casein.csv",
+      "bitumen_fresco.csv",
+      "bitumen_yolk.csv"
+    ]
+  },
+  "Burnt Siena": {
+    "FORS": [
+      "burnt_siena_albumen.csv",
+      "burnt_siena_arabicgum.csv",
+      "burnt_siena_casein.csv",
+      "burnt_siena_fresco.csv",
+      "burnt_siena_yolk.csv"
+    ],
+    "FT-IR": [
+      "Burnt_Siena_albume.csv",
+      "Burnt_Siena_arabicgum.csv",
+      "Burnt_Siena_casein.csv",
+      "Burnt_Siena_fresco.csv",
+      "Burnt_Siena_yolk.csv"
+    ]
+  },
+  "Burnt Umber": {
+    "FORS": [
+      "Burnt_umber_albumen.csv",
+      "Burnt_umber_arabicgum.csv",
+      "Burnt_umber_casein.csv",
+      "Burnt_umber_fresco.csv",
+      "Burnt_umber_yolk.csv"
+    ],
+    "FT-IR": [
+      "burnt_umber_albume.csv",
+      "burnt_umber_arabicgum.csv",
+      "burnt_umber_casein.csv",
+      "burnt_umber_fresco.csv",
+      "burnt_umber_yolk.csv"
+    ]
+  },
+  "Carmine Lake": {
+    "FORS": [
+      "CarmineLake_albumen.csv",
+      "CarmineLake_arabicgum.csv",
+      "CarmineLake_casein.csv",
+      "CarmineLake_yolk.csv"
+    ],
+    "FT-IR": [
+      "carmine-lake_albumen.csv",
+      "carmine-lake_arabicgum.csv",
+      "carmine-lake_casein.csv",
+      "carmine-lake_yolk.csv"
+    ]
+  },
+  "Chrysocolla": {
+    "FORS": [
+      "Chrysocolla_albumen.csv",
+      "Chrysocolla_arabicgum.csv",
+      "Chrysocolla_casein.csv",
+      "Chrysocolla_yolk.csv"
+    ],
+    "FT-IR": [
+      "chrysocolla_albumen.csv",
+      "chrysocolla_arabicgum.csv",
+      "chrysocolla_casein.csv",
+      "chrysocolla_yolk.csv"
+    ],
+    "RAMAN": [
+      "chrysocolla_albume.csv",
+      "chrysocolla_arabicgum.csv",
+      "chrysocolla_yolk.csv"
+    ]
+  },
+  "Cinnabar": {
+    "FORS": [
+      "cinnabar_albumen.csv",
+      "cinnabar_arabicgum.csv",
+      "cinnabar_casein.csv",
+      "cinnabar_fresco.csv",
+      "cinnabar_yolk.csv"
+    ],
+    "FT-IR": [
+      "Cinnabar_albumen.csv",
+      "Cinnabar_arabicgum.csv",
+      "Cinnabar_casein.csv",
+      "Cinnabar_fresco.csv",
+      "Cinnabar_yolk.csv"
+    ],
+    "RAMAN": [
+      "cinnabar_albumen.csv",
+      "cinnabar_arabicgum.csv",
+      "cinnabar_casein.csv",
+      "cinnabar_yolk.csv"
+    ]
+  },
+  "Egyptian Blue": {
+    "FORS": [
+      "egyptian_blue_albumen.csv",
+      "egyptian_blue_arabicgum.csv",
+      "egyptian_blue_casein.csv",
+      "egyptian_blue_fresco.csv",
+      "egyptian_blue_yolk.csv"
+    ],
+    "FT-IR": [
+      "EgyptianBlue_albumen.csv",
+      "EgyptianBlue_arabicgum.csv",
+      "EgyptianBlue_casein.csv",
+      "EgyptianBlue_fresco.csv",
+      "EgyptianBlue_yolk.csv"
+    ]
+  },
+  "Green Earth Cipro": {
+    "FORS": [
+      "Green_earth_Cipro_albumen.csv",
+      "Green_earth_Cipro_arabicgum.csv",
+      "Green_earth_Cipro_casein.csv",
+      "Green_earth_Cipro_fresco.csv",
+      "Green_earth_Cipro_yolk.csv"
+    ],
+    "FT-IR": [
+      "greenearthCipro_albumen.csv",
+      "greenearthCipro_arabicgum.csv",
+      "greenearthCipro_casein.csv",
+      "greenearthCipro_fresco.csv",
+      "greenearthCipro_yolk.csv"
+    ]
+  },
+  "Green Earth Verona": {
+    "FORS": [
+      "Green_earth_Verona_albume.csv",
+      "Green_earth_Verona_arabicgum.csv",
+      "Green_earth_Verona_casein.csv",
+      "Green_earth_Verona_fresco.csv",
+      "Green_earth_Verona_yolk.csv"
+    ],
+    "FT-IR": [
+      "GreenEarthVerona_albumen.csv",
+      "GreenEarthVerona_arabicgum.csv",
+      "GreenEarthVerona_casein.csv",
+      "GreenEarthVerona_fresco.csv",
+      "GreenEarthVerona_yolk.csv"
+    ]
+  },
+  "Indigo": {
+    "FORS": [
+      "Indigo_albumen.csv",
+      "Indigo_arabicgum.csv",
+      "Indigo_casein.csv",
+      "Indigo_yolk.csv"
+    ],
+    "FT-IR": [
+      "indigo_albumen.csv",
+      "indigo_arabicgum.csv",
+      "indigo_casein.csv",
+      "indigo_yolk.csv"
+    ]
+  },
+  "Ivory Black": {
+    "FORS": [
+      "Ivory_black_albumen.csv",
+      "Ivory_black_arabicgum.csv",
+      "Ivory_black_casein.csv",
+      "Ivory_black_fresco.csv",
+      "Ivory_black_yolk.csv"
+    ],
+    "FT-IR": [
+      "ivory_black_albumen.csv",
+      "ivory_black_arabicgum.csv",
+      "ivory_black_casein.csv",
+      "ivory_black_fresco.csv",
+      "ivory_black_yolk.csv"
+    ]
+  },
+  "Lapis Lazuli": {
+    "FORS": [
+      "lapis_albumen.csv",
+      "lapis_arabicgum.csv",
+      "lapis_casein.csv",
+      "lapis_fresco.csv",
+      "lapis_yolk.csv"
+    ],
+    "FT-IR": [
+      "Lapis_albumen.csv",
+      "Lapis_arabicgum.csv",
+      "Lapis_casein.csv",
+      "Lapis_fresco.csv",
+      "Lapis_yolk.csv"
+    ]
+  },
+  "Lead White": {
+    "FORS": [
+      "LeadWhite_albumen.csv",
+      "LeadWhite_arabicgum.csv",
+      "LeadWhite_casein.csv",
+      "LeadWhite_fresco.csv",
+      "LeadWhite_yolk.csv"
+    ],
+    "FT-IR": [
+      "Lead-white_yolk.csv",
+      "lead-white_albumen.csv",
+      "lead-white_casein.csv",
+      "lead-white_fresco.csv",
+      "lead-white_gum.csv"
+    ],
+    "RAMAN": [
+      "lead-white_casein.csv",
+      "lead_white_albume.csv",
+      "lead_white_fresco.csv",
+      "lead_white_yolk.csv"
+    ]
+  },
+  "Lead-Tin Yellow": {
+    "FORS": [
+      "lead-tin_yellow_albume.csv",
+      "lead-tin_yellow_arabicgum.csv",
+      "lead-tin_yellow_casein.csv",
+      "lead-tin_yellow_fresco.csv",
+      "lead-tin_yellow_yolk.csv"
+    ],
+    "FT-IR": [
+      "lead-tin_yellow_albume.csv",
+      "lead-tin_yellow_casein.csv",
+      "lead-tin_yellow_gum.csv",
+      "lead-tin_yellow_yolk.csv"
+    ]
+  },
+  "Madder Lake": {
+    "FORS": [
+      "madder_lake_albumen.csv",
+      "madder_lake_arabicgum.csv",
+      "madder_lake_casein.csv",
+      "madder_lake_yolk.csv"
+    ],
+    "FT-IR": [
+      "madder-lake_albume.csv",
+      "madder-lake_casein.csv",
+      "madder-lake_gum.csv",
+      "madder-lake_yolk.csv"
+    ]
+  },
+  "Malachite Dark": {
+    "FORS": [
+      "malachite_albumen.csv",
+      "malachite_arabicgum.csv",
+      "malachite_casein.csv",
+      "malachite_fresco.csv",
+      "malachite_yolk.csv"
+    ],
+    "FT-IR": [
+      "malachitedark__yolk.csv",
+      "malachitedark_albumen.csv",
+      "malachitedark_arabicgum.csv",
+      "malachitedark_casein.csv",
+      "malachitedark_fresco.csv"
+    ]
+  },
+  "Minium": {
+    "FORS": [
+      "Minium_albumen.csv",
+      "Minium_arabicgum.csv",
+      "Minium_casein.csv",
+      "Minium_fresco.csv",
+      "Minium_yolk.csv"
+    ],
+    "FT-IR": [
+      "minium_albume.csv",
+      "minium_arabicgum.csv",
+      "minium_casein.csv",
+      "minium_fresco.csv",
+      "minium_yolk.csv"
+    ],
+    "RAMAN": [
+      "minium_albumen.csv",
+      "minium_arabicgum.csv",
+      "minium_casein.csv",
+      "minium_fresco.csv",
+      "minium_yolk.csv"
+    ]
+  },
+  "Natural Siena": {
+    "FORS": [
+      "Natural_siena_albumen.csv",
+      "Natural_siena_arabicgum.csv",
+      "Natural_siena_casein.csv",
+      "Natural_siena_fresco.csv",
+      "Natural_siena_yolk.csv"
+    ],
+    "FT-IR": [
+      "siena_albume.csv",
+      "siena_arabicgum.csv",
+      "siena_casein.csv",
+      "siena_fresco.csv",
+      "siena_yolk.csv"
+    ]
+  },
+  "Red Ochre": {
+    "FORS": [
+      "redochre_albume.csv",
+      "redochre_arabicgum.csv",
+      "redochre_casein.csv",
+      "redochre_fresco.csv",
+      "redochre_yolk.csv"
+    ]
+  },
+  "Verdigris": {
+    "FORS": [
+      "verdigris_albumen.csv",
+      "verdigris_arabicgum.csv",
+      "verdigris_casein.csv",
+      "verdigris_fresco.csv",
+      "verdigris_yolk.csv"
+    ],
+    "FT-IR": [
+      "verdigris_albume.csv",
+      "verdigris_arabicgum.csv",
+      "verdigris_casein.csv",
+      "verdigris_yolk.csv"
+    ]
+  },
+  "Yellow Ochre": {
+    "FORS": [
+      "yellowochre_albume.csv",
+      "yellowochre_arabicgum.csv",
+      "yellowochre_casein.csv",
+      "yellowochre_fresco.csv",
+      "yellowochre_yolk.csv"
+    ],
+    "FT-IR": [
+      "yellowochre_albumen.csv",
+      "yellowochre_arabicgum.csv",
+      "yellowochre_casein.csv",
+      "yellowochre_fresco.csv",
+      "yellowochre_yolk.csv"
+    ]
+  }
+}

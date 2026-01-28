@@ -3,6 +3,7 @@ const plotsContainer = document.getElementById('plotsContainer');
 
 let config = {};
 let siteContent = {};
+let manifest = {}; // Manifest of all files for GitHub Pages compatibility
 // cache for parsed data: dataCache[pigment][instrument][file] = {x,y}
 let dataCache = {};
 
@@ -46,6 +47,12 @@ async function init() {
     config = {};
   }
   try {
+    manifest = await loadJSON('data/manifest.json');
+  } catch (e) {
+    console.warn('manifest.json not found, will use directory listing', e);
+    manifest = {};
+  }
+  try {
     siteContent = await loadJSON('data/site_content.json');
   } catch (e) {
     console.warn('site_content.json not found; using defaults', e);
@@ -65,17 +72,19 @@ async function init() {
     siteContent.pigmentsMap = siteContent.pigments || {};
   }
 
-  // discover pigments from data/pigments/ and merge with config keys
-  let discovered = [];
-  try {
-    discovered = await listDirectory('data/pigments/', { dirsOnly: true });
-  } catch (e) {
-    console.warn('Could not list data/pigments/, falling back to config keys', e);
-  }
-
-  const pigments = Array.from(new Set([...(Array.isArray(Object.keys(config)) ? Object.keys(config) : []), ...(Array.isArray(discovered) ? discovered : [])]));
+  // Use pigments from site_content.json instead of directory listing (for GitHub Pages compatibility)
+  const pigments = Object.keys(siteContent.pigmentsMap || {});
+  
+  // Fallback to config keys if site_content.json has no pigments
   if (pigments.length === 0) {
-    console.error('No pigments found in config or data/pigments/');
+    const configKeys = Object.keys(config || {});
+    if (configKeys.length > 0) {
+      pigments.push(...configKeys);
+    }
+  }
+  
+  if (pigments.length === 0) {
+    console.error('No pigments found in site_content.json or config');
     return;
   }
 
@@ -98,44 +107,41 @@ async function renderPigment() {
   const pigment = pigmentSelect.value;
   plotsContainer.innerHTML = '';
 
-  // discover instrument folders inside data/pigments/<pigment>/
-  let discovered = [];
-  try {
-    discovered = await listDirectory(`data/pigments/${pigment}/`, { dirsOnly: true });
-  } catch (e) {
-    console.warn('Could not list pigment folder', e);
-  }
+  // Get instruments from manifest (GitHub Pages), or try standard names, or from config
+  let instruments = [];
+  
+  if (manifest[pigment]) {
+    // Use manifest if available (GitHub Pages)
+    instruments = Object.keys(manifest[pigment]);
+  } else {
+    // Fallback: try standard instrument folder names
+    const standardInstruments = ['FORS', 'FT-IR', 'Raman', 'RAMAN'];
+    const configInstruments = Object.keys(config[pigment] || {});
+    
+    // Combine standard instruments with any from config
+    const instrumentsSet = new Set([...standardInstruments, ...configInstruments]);
+    const instrumentsToTry = Array.from(instrumentsSet).sort();
 
-  const configInstruments = Object.keys(config[pigment] || {});
-  // determine instruments as union of configured and discovered (filtered)
-  const instrumentsSet = new Set([...configInstruments, ...discovered]);
-  let instruments = Array.from(instrumentsSet).sort();
-
-  // filter out instruments that neither have a directory nor any existing configured files
-  const filtered = [];
-  for (const instr of instruments) {
-    if (discovered.includes(instr)) { filtered.push(instr); continue; }
-    // otherwise check if config lists files that actually exist
-    const cfgFiles = config[pigment]?.[instr];
-    let hasExisting = false;
-    if (Array.isArray(cfgFiles) && cfgFiles.length > 0) {
-      for (const f of cfgFiles) {
-        const p = `data/pigments/${pigment}/${instr}/${encodeURIComponent(f)}`;
-        try {
-          // try to fetch the file HEAD to see if it exists
-          // some servers may not support HEAD; use GET but avoid reading body
-          // we'll perform a GET but only check response.ok
-          // eslint-disable-next-line no-await-in-loop
-          const res = await fetch(p, { method: 'GET' });
-          if (res.ok) { hasExisting = true; break; }
-        } catch (e) {
-          /* ignore network errors */
+    // Check which instruments actually have data by trying to list their directories
+    for (const instr of instrumentsToTry) {
+      try {
+        // Try to list directory - will work locally
+        const files = await listDirectory(`data/pigments/${pigment}/${instr}/`, { filesOnly: true });
+        if (files && files.length > 0) {
+          instruments.push(instr);
+          continue;
         }
+      } catch (e) {
+        // Directory listing failed - skip this instrument
+      }
+      
+      // If directory listing failed, check if config has files for this instrument
+      const cfgFiles = config[pigment]?.[instr];
+      if (Array.isArray(cfgFiles) && cfgFiles.length > 0) {
+        instruments.push(instr);
       }
     }
-    if (hasExisting) filtered.push(instr);
   }
-  instruments = filtered;
 
   for (const instrument of instruments) {
     const section = document.createElement('section');
@@ -157,11 +163,16 @@ async function renderPigment() {
     section.append(title, desc, filesContainer, plotEl);
     plotsContainer.appendChild(section);
 
-    // gather files: prefer config list, otherwise read directory
+    // gather files: prefer manifest, then config, otherwise try directory listing
     let files = [];
-    if (Array.isArray(config[pigment]?.[instrument])) {
+    if (manifest[pigment]?.[instrument]) {
+      // Use manifest (GitHub Pages)
+      files = manifest[pigment][instrument];
+    } else if (Array.isArray(config[pigment]?.[instrument])) {
+      // Use config if available
       files = config[pigment][instrument];
-      } else {
+    } else {
+      // Try directory listing (local server)
       try {
         files = await listDirectory(`data/pigments/${pigment}/${instrument}/`, { filesOnly: true });
       } catch (e) {
