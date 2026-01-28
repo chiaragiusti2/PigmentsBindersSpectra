@@ -1,0 +1,118 @@
+{
+  "pageTitle": "Pigments & Binders",
+  "header": "Pigments & Binders — Interactive Spectral Library",
+  "intro": "Explore spectral measurements of historical painting materials recorded with various instruments.",
+  "footer": "Data and metadata provided for research and teaching purposes.",
+  "pigments": [
+    {
+      "name": "Azurite",
+      "title": "Azurite",
+      "description": "**Chemical Formula**\nCu3(CO3)2(OH)2\n**Period of use in Art**\nKnown since the 25th century BC and used until 1800.\n**Description**\nAzurite is a rather rare and precious pigment obtained by grinding the copper mineral of the same name. Its use has been documented since the third millennium BC, and it was used as early as the Fourth Egyptian Dynasty, although it was not widely used at the time due to its instability. In Roman times, it was described by Pliny under the name Lapis Armenium. In the Middle Ages, azurite gained importance and was used extensively.\nThe pigment is a basic copper carbonate, unstable and reactive, which when in contact with lime and when heated, turns into black copper oxide (tenorite, CuO), so it is not recommended for use in fresco techniques. Even when applied dry, it can cause problems as it undergoes degradation due to humidity, chloride attack, and the presence of sulfides, which lead to the formation of copper sulfide and therefore to darkening of the color.\nAzurite is associated with another copper-based pigment, malachite, which is green in color. Azurite and Malachite share the same chemical nature but with a different crystal structure. When azurite is exposed to air and humid conditions, the process of transformation into malachite can be activated thanks to this reaction: \n2[2CuCO3⋅Cu(OH)2] + H2O→3 [CuCO3⋅Cu(OH)2] + CO2\nMicroscopically, the alteration is often observed as a green malachite overgrowth or pseudomorphic replacement on azurite particles, leading to a gradual chromatic shift from blue to green. This phenomenon is particularly relevant in wall paintings and polychrome artworks, where it represents a key degradation pathway affecting original color appearance."
+    },
+    {
+      "name": "Chrysocolla",
+      "title": "Chrysocolla",
+      "description": "**Chemical Formula**\n(Cu,Al)2H2Si2O5(OH)4·nH2O (variable composition)\n**Period of use in Art**\nFrom Antiquity to 17th century\n**Description**\nChrysocolla is a hydrated copper silicate mineral occasionally used as a blue-green pigment. It forms together with basic copper carbonates (azurite and malachite) as a secondary deposit, slightly crystalline and on copper deposits with an encrusted appearance. The widespread use of this mineral as a pigment is uncertain, due to its variable optical characteristics and degree of crystallinity, which can make it difficult to determine its presence. Pliny, in his _Naturalis Historia_, mentions it as an ingredient used to solder gold, as suggested by its name derived from the Greek words meaning gold (chrysos) and glue (kolla)."
+    },
+    {
+      "name": "Egyptian Blue",
+      "title": "Egyptian Blue",
+      "description": "**Chemical Formula**\nCaCuSi4O10\n**Period of use in Art**\nFrom the 3rd millennium BC until the fall of the Roman Empire.\n**Description**\nEgyptian blue is the first known synthetic pigment, produced by heating a mixture of silica, lime, copper compounds, and alkali. It is chemically stable and exhibits characteristic luminescence under infrared radiation, a property widely used for its identification in archaeological contexts. The chemical composition of Egyptian blue corresponds to the mineral cuprorivaite, but since it is an amorphous glass, alongside cuprorivaite there are areas with unreacted quartz and glassy areas."
+    },
+    {
+      "name": "Red Ochre",
+      "title": "Red Ochre",
+      "description": "**Chemical Formula**\nFe2O3.((Al2O3SiO2).xH2O)\n**Period of use in Art**\nFrom Prehistory until present\n**Description**\nRed ochre is a natural earth pigment composed mainly of hematite. It is one of the oldest pigments used by humans and is highly stable. It is produced by grinding and washing soil containing hematite (Fe2O3), which gives it its red color, or by calcining yellow ochre. It has always been used in all artistic techniques.\nRed ochre is stable in all media, but if the atmosphere is reducing, Hematite can transform into Magnetite, which is black in color. This alteration can be seen in wall paintings or frescoes that have been damaged by fire."
+    },
+    {
+      "name": "Minium",
+      "title": "Minium",
+      "description": "**Chemical Formula**\nPb3O4 or 2PbO·PbO₂\n**Period of use in Art**\nFrom before the 5th century BC until the mid-1900s in painting techniques, still in use in ceramics and glass manufacturing.\n**Description**\nMinium is a synthetic lead oxide pigment with a bright orange red color, also known as Red Lead, produced since ancient times and chemically and mineralogically similar to the natural mineral _Minio_. The latter was abandoned as early as the 1st century AD when it became known that the pigment could be obtained by heating other lead compounds. The pigment obtained was called _Cerussa_ (burnt white lead). It was most commonly used as an adulterant for more expensive pigments, such as cinnabar or lacquers, or to color red bole preparations.\nIt tends to darken in tempera and fresco, but is stable in oil-based compounds."
+    },
+    {
+      "name": "Yellow Ochre",
+      "title": "Yellow Ochre",
+      "description": "**Chemical Formula**\nFeO(OH)·nH₂O\n**Period of use in Art**\nFrom Prehistory until present\n**Description**\nOchres are a very varied class of pigments.\nYellow ochre is a mixture of iron oxides and hydroxides together with impurities such as organic substances. The yellow color in this case is due to the presence of goethite, iron(III) hydroxide, associated with clay minerals. The quantity of accessory minerals determines the shade of ochre.\nWhen subjected to heat above 140°C, iron hydroxides lose water, taking on shades ranging from red to orange due to the presence of hematite."
+    },
+    {
+      "name": "Natural Siena",
+      "title": "Natural Siena",
+      "description": "**Chemical Formula**\nFeO(OH)3 with clay minerals (Al2O3SiO2.xH2O) and MnO2\n**Period of use in Art**\nFrom Prehistory until present\n**Description**\nNatural sienna is an iron oxyhydroxide earth pigment with a yellow brown tone.\nIt is stable and widely used in all painting techniques but It is not recommended for use with oil-based mediums.\nSienna earths pigments are special types of ochre containing up to 50-60% goethite or hematite and up to 1% pyrolusite (manganese dioxide MnO2), a dark mineral.\nIt takes its name from _Siena_, the Tuscan city in Italy, where some of the best deposits of this earth are found.\nIts chemical and physical characteristics are similar to those of ochre, but it dries faster due to the presence of manganese and does not have greenish undertones. When heated, Natural Sienna earths become Burnt Sienna due to the transformation of goethite into hematite."
+    },
+    {
+      "name": "Burnt Siena",
+      "title": "Burnt Siena",
+      "description": "**Chemical Formula**\nFe2O3 with minor MnO2 and clay minerals (Al2O3SiO2.xH2O)\n**Period of use in Art**\nFrom Prehistory until present\n**Description**\nBurnt sienna is an iron oxide earth pigment characterized by a warm reddish-brown hue. It is obtained by calcining Natural Sienna, a process that induces the dehydration and structural transformation of goethite into hematite. This thermal treatment deepens the color and increases chromatic saturation.\nBurnt sienna is chemically and mineralogically comparable to other iron oxide earth pigments, with hematite (Fe₂O₃) as the dominant coloring phase and minor amounts of manganese oxides, which can influence drying behavior, particularly in oil media. The pigment is generally stable and compatible with most painting techniques, including fresco, tempera, and oil painting.\nDue to the presence of manganese compounds, burnt sienna typically exhibits faster drying properties in oil-based systems compared to ochres. Its physical properties and durability have contributed to its widespread use from antiquity to modern artistic practice."
+    },
+    {
+      "name": "Cinnabar",
+      "title": "Cinnabar",
+      "description": "**Chemical Formula**\nHgS\n**Period of use in Art**\nFrom the 16th century BC in Greece, but probably earlier in Asia, until the advent of cadmium red around the 19th century AD.\n**Description**\nCinnabar is a naturally occurring mercury sulfide that has been used since ancient times for its intense red colour. It is also known as Vermilion, but this term usually refers to the artificial red pigment based on mercury sulphide (HgS), while cinnabar refers to the natural crystalline form.\nThe name cinnabar derived from the Greek's word _kinnabari_, means "smell", while vermilion derives from the Latin word _vermiculus_, tiny worm, probably on account of the fact that the colour was quite similar to Kermes Lacquer.\nSince the antiquity, the mineral was finely grinded to be used as a pigment for its vivid red colour and was highly valued due to its intense colouration and durability. The mineral can be found distributed in varius zones of the world, the major deposits are located in Germany, Italy and in Spain.\nAlthough the mineral is present in many mines, the veins containing it are scarce and often impure, and the process of extracting and cleaning it took a long time, this is the reason why the production of synthetic cinnabar, i.e. _vermilion_, was already being performed in antiquity. The process of obtaining Vermilion was also laborious and expensive.\nDuring the Middle Ages, vermilion became more widely used than natural cinnabar and can in fact be found in many works alone or mixed with other reds, such as ochre or _minium_.\nCinnabar, in both its natural and artificial form, tends to darken with exposure to light, turning the cinnabar (α-HgS) into the black metacinnabar (β-HgS). To reduce the darkening, the pigment was frequently treated with red lacquer glazes."
+    },
+    {
+      "name": "Lead-Tin Yellow",
+      "title": "Lead-Tin Yellow",
+      "description": "**Chemical Formula**\nPb2SnO4 (Type I)\n**Period of use in Art**\n14th – 18th century\n**Description**\nLead tin yellow is a synthetic pigment used mainly in Renaissance painting. It is chemically stable and was widely employed before being replaced by other yellow pigments.\nLead-tin yellow exists in two distinct varieties. The most common one, referred to as type I, consists of a mixed lead–tin oxide with the chemical composition Pb₂SnO₄. Type II, on the other hand, may include small amounts of silica and tin oxide in its pure form."
+    },
+    {
+      "name": "Green Earth Cipro",
+      "title": "Green Earth Cipro",
+      "description": "**Chemical Formula**\n(K,Na)(Fe(III), Al, Mg)2(Si, Al)4O10(OH)2 (glauconite)\n**Period of use in Art**\nFrom Antiquity until present\n**Description**\nGreen earths have been known since ancient times and are the only totally natural stable green pigment.\nThey are composed of various mineralogical species that determine their coloration, mainly hydrated iron (II), magnesium, and alkali silicates, such as glauconite, celadonite (the two main compounds), cronstedtite, and chlorite. Their composition varies greatly depending on their origin and provenance.\nGreen earth from Cyprus, or Nicosia, named after the place where it was extracted, is considered the most valuable, with a more bluish tone than common green earths, and its main mineral component is glauconite."
+    },
+    {
+      "name": "Green Earth Verona",
+      "title": "Green Earth Verona",
+      "description": "**Chemical Formula**\nK(Mg,Fe(II))(Fe(III), Al)[Si4O10](OH)2) (celadonite)\n**Period of use in Art**\nFrom Antiquity until present\n**Description**\nGreen earths have been known since ancient times and are the only totally natural stable green pigment.\nThey are composed of various mineralogical species that determine their coloration, mainly hydrated iron (II), magnesium, and alkali silicates, such as glauconite, celadonite (the two main compounds), cronstedtite, and chlorite. Their composition varies greatly depending on their origin and provenance.\nThe Green Earth of Verona, so called because of the deposits in the Verona area of Monte Baldo, Italy, owes its color to ferromagnesian silicates, mainly celadonite, which are generally found in products derived from the alteration of volcanic rocks."
+    },
+    {
+      "name": "Malachite Dark",
+      "title": "Malachite Dark",
+      "description": "**Chemical Formula**\nCu2(CO3)(OH)2\n**Period of use in Art**\nFrom the 3rd millennium BC until 1800 AD.\n**Description**\nGreen earths have been known since ancient times and are the only totally natural stable green pigment.\nThey are composed of various mineralogical species that determine their coloration, mainly hydrated iron (II), magnesium, and alkali silicates, such as glauconite, celadonite (the two main compounds), cronstedtite, and chlorite. Their composition varies greatly depending on their origin and provenance.\nThe Green Earth of Verona, so called because of the deposits in the Verona area of Monte Baldo, Italy, owes its color to ferromagnesian silicates, mainly celadonite, which are generally found in products derived from the alteration of volcanic rocks."
+    },
+    {
+      "name": "Verdigris",
+      "title": "Verdigris",
+      "description": "**Chemical Formula**\nCu(CH3COO)2 2Cu(OH) (variable)\n**Period of use in Art**\nFrom Antiquity until the introduction of modern Viridian pigment in the 18th century\n**Description**\nVerdigris is a copper acetate pigment produced artificially.\nProduced since ancient times and mentioned by Pliny, Vitruvius, and Theophilus, it was obtained by exposing copper plates to acetic acid vapors from wine and vinegar, but sometimes also from urine, honey, or fermented milk.\nBeing a mixture of copper salts, its chemical definition is not simple and depends on the conditions under which it was produced."
+    },
+    {
+    "name": "Burnt Umber",
+      "title": "Burnt Umber",
+      "description": "**Chemical Formula**\nFe2O3 + MnO2 with silicates (calcined natural earth)\n**Period of use in Art**\nfrom Antiquity to present\n**Description**\nBurnt umber can be obtained either by grinding earth containing chromophores or by calcining natural umber.\nIt contains hematite, manganese dioxide (pyrolusite), and varying amounts of clay compounds.\nCalcination darkens the pigment and shifts its hue toward deep brown.\nDue to the presence of manganese oxides, burnt umber can accelerate the drying of oil binders. It is generally stable and widely used in easel and wall painting. However, some authors report the need to mix it with white lime to make it less dark and to prevent the formation of cracks during drying, probably due to the presence of organic material in the earth."
+    },
+    {
+      "name": "Bitumen",
+      "title": "Bitumen",
+      "description": "**Chemical Formula**\nComplex mixture of high molecular weight hydrocarbons (no fixed stoichiometric formula)\n**Period of use in Art**\nfrom Antiquity to present\n**Description**\nBitumen is a naturally occurring mixture of hydrocarbons obtained from the refining of petroleum.\nIn art, it was used as a pigment or medium, mainly for glazing, given its weak covering power.\nBitumen remains chemically unstable in paint films: it does not fully dry and is prone to flow, darkening, and cracking over time, especially in oil painting. These properties make it a major cause of deterioration in paintings where it was used."
+    },
+    {
+      "name": "Ivory Black",
+      "title": "Ivory Black",
+      "description": "**Chemical Formula**\nAmorphous carbon with Ca3(PO4)2 residues.\n**Period of use in Art**\nFrom Antiquity to present\n**Description**\nIvory black is the nobler ancestor of common bone black.\nIt is obtained by calcining ivory in the absence of air. It consists mainly of carbon with calcium phosphate.\nThe pigment is stable, with a characteristic warm black tone. However, it can undergo alteration in frescoes due to the strong basicity of lime, leading to a “whitening” of the color."
+    },
+     {
+      "name": "Carmine Lake",
+      "title": "carmine Lake",
+      "description": "**Chemical Formula**\nOrganic anthraquinone derivatives complexed with Al3+(no fixed formula)\n**Period of use in Art**\nFrom Antiquity to present\n**Description**\nCarmine is a red colorant that has been employed as a dye and lake pigment since antiquity.\nCarmine is the currently accepted generic name for two closely related colored substances obtainend by two primary species of wingless female scale insects: cochineal, from South America, and kermes, from Europe continent.\nWhen chemically treated, these slightly different substances yield respectively the distinctive compounds, _carminic acid_ (7-α-D-glucopyranosyl-9, 10-dihydro-3,5,6,8-tetrahydroxy-1-methyl-9, 10-dioxo-2-anthracenecarboxylic acid (C22H20O13)),and _kermesic acid_ (9,10-dihydro-3,5,6,8-tetrahydroxy-1-methyl-9, 10-dioxo-2-anthracenecarboxylic acid (C16H10O8)).\nKermes is one of the oldest organic colorants known; it is mentioned in both the Old and New Testaments of the Bible. The colorant was used in ancient Egypt and the near East and is mentioned in the writings of Dioscorides and Pliny. It was also employed in miniature painting during late antiquity and the Middle Ages. Today kermes is rarely encountered except where native craft practices persist.\nCochineal was used by the Aztecs for dyeing and painting and was brought to Europe in the sixteenth century following the Spanish conquest.\nCarmine lake is an organic pigment derived from carminic or kermesic acid precipitated onto an inorganic substrate, typically alumina."
+    },
+    {
+      "name": "Indigo",
+      "title": "Indigo",
+      "description": "**Chemical Formula**\nC16H10N2O2\n**Period of use in Art**\nFrom Antiquity to present\n**Description**\nIndigo is a deep blue dye extracted from plants of the _Indigofera tinctoria_ and was widely used for its richness of colour and ability to adhere to various materials, including stones and sculptures. The production of pigment indigo involved a complex process of extracting the colouring substance from the plant. The leaves of the indigo plant were immersed in water, usually with the addition of lime or ammonia, and left there to ferment, triggering a chemical reaction that released the indigo dye. This dye could then be concentrated and transformed into a usable form of pigment. Indigo has been known since antiquity, but it remained a very rare pigment in the West until the 13th century, when cultures of the plant also began to emerge in Europe. Although it is not a stable pigment for the fresco technique, it is found in wall paintings applied using the dry technique, since it is suitable for organic binders such as temperas, oils and glues. In addition, indigoid dyes were frequently combined with yellow pigments to produce shades of green since other green colour sources were quite difficult to find in nature."
+    },
+    {
+      "name": "Madder Lake",
+      "title": "Madder Lake",
+      "description": "**Chemical Formula**\nAnthraquinone derivatives (alizarin, purpurin) complexed with Al3+\n**Period of use in Art**\nFrom Antiquity to present.\n**Description**\nMadder lake, or Lacca di Robbia, or Garancia, is an organic pigment of plant origin derived from the roots of Rubia tinctorum L., which is originally from Asia but had been exported in Europe since long time, expandend to all the nations after being initially introduced to France.\nThe lacquer contains three main colouring substances and depending on their quantity the shades of colour of the lacquer change: alizarin (1,2-dihydroxyanthraquinone), purpurin (1,2,4-rihydroxyanthraquinone), and pseudopurpurin (1,2,4-trihydroxyanthraquinone-3-caboxylic acid).\nThe variety of colour is also influenced by the metal salt used as a mordant: iron free alum yields the best red, the alumina lacquer is rose red or bluish red with calcium, the tin lacquer is red-violet, the iron lacquer is black-violet, and the chrome lacquer is brown-violet or red-brown.\nLike other organic lakes, it is sensitive to light and prone to fading."
+    },
+    {
+      "name": "Lapis Lazuli",
+      "title": "Lapis Lazuli",
+      "description": "**Chemical Formula**\n(Na,Ca)8(AlSiO4)6(S,SO4,Cl)2\n**Period of use in Art**\nFrom Antiquity until the 18th century, replaced by artificial Ultramarine\n**Description**\nThe pigment Lapis lazuli, also called natural ultramarine, comes from the precious mineral lazurite, imported mainly from Afghanistan (hence the name _ultra_ (beyond) _maris_ (sea). The mineral is an intense blue, but when ground it produces a semi-transparent grayish-blue powder because it contains many transparent compounds. For this reason, the preparation of the pigment has been gradually refined using purification methods designed to extract the intense blue. The pigment was therefore very expensive, which is why its use in painting was often reserved for works of a certain value. Its first use in painting seems to date back to the 6th-7th century AD in Afghanistan; although the pigment was known to the Egyptians, Greeks, and Romans, they had the alternative of Egyptian blue and used it more as an ornamental stone."
+    }
+  ],
+  "instruments": {
+    "FORS": "**FORS** (Fiber Optic Reflectance Spectroscopy)\nProvides reflectance vs wavelength in the _visible/near-infrared_ range.",
+    "FT-IR": "**FT-IR** (Fourier-transform infrared spectroscopy)\nMeasures _absorption_ in the _mid-infrared_ (wavenumber) region.",
+    "Raman": "**Raman spectroscopy**\nProvides _vibrational spectra_ useful for identifying molecular species."
+  }
+}
