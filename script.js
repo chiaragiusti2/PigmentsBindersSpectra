@@ -311,26 +311,96 @@ async function renderPigment() {
 }
 
 function parseDataText(text) {
-  // tries multiple parsing strategies: custom marker, then CSV/TSV
+  // 1. Standardize line endings and clean empty lines
+  const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+
+  // ---------------------------------------------------------
+  // STRATEGY A: Specific Raman Parsing (look for specific columns)
+  // ---------------------------------------------------------
+  const ramanHeaderIndex = rawLines.findIndex(l => 
+    l.includes('Raman Shift') && l.includes('Dark Subtracted')
+  );
+
+  if (ramanHeaderIndex !== -1) {
+    const x = [], y = [];
+    
+    // Detect delimiter: try semicolon first (European CSV), then tab, then comma
+    const headerLine = rawLines[ramanHeaderIndex];
+    let delimiter = ',';
+    if (headerLine.includes(';')) {
+      delimiter = ';';
+    } else if (headerLine.includes('\t')) {
+      delimiter = '\t';
+    }
+    
+    // Parse the header to find exact column indices
+    const headerParts = headerLine.split(delimiter).map(h => h.trim());
+    
+    // Find indices for "Raman Shift" and "Dark Subtracted #1" (or similar)
+    let xIndex = headerParts.findIndex(h => h.toLowerCase().includes('raman shift'));
+    let yIndex = headerParts.findIndex(h => h.toLowerCase().includes('dark subtracted'));
+
+    // If found, parse data rows
+    if (xIndex !== -1 && yIndex !== -1) {
+      for (let i = ramanHeaderIndex + 1; i < rawLines.length; i++) {
+        const line = rawLines[i];
+        // Skip lines that start with letters or are separator lines
+        if (/^[A-Za-z#]/.test(line) || line.includes('---')) continue;
+
+        // Split by the detected delimiter
+        const parts = line.split(delimiter).map(p => p.trim());
+
+        // Ensure line has enough columns
+        if (parts.length <= Math.max(xIndex, yIndex)) continue;
+
+        // Get values and convert European decimal format (comma) to standard (dot)
+        const valXStr = parts[xIndex].replace(',', '.').trim();
+        const valYStr = parts[yIndex].replace(',', '.').trim();
+
+        // Parse numbers
+        const valX = parseFloat(valXStr);
+        const valY = parseFloat(valYStr);
+
+        // Check for valid numbers (filters out the separator lines)
+        if (!isNaN(valX) && !isNaN(valY)) {
+          x.push(valX);
+          y.push(valY);
+        }
+      }
+      if (x.length > 0) {
+        return { x, y };
+      }
+    }
+  }
+
+  // ---------------------------------------------------------
+  // STRATEGY B: Generic CSV/TSV parsing (fallback for FORS, FT-IR)
+  // ---------------------------------------------------------
   const marker = '>>>>>Begin Spectral Data<<<<<';
-  let lines = [];
-  if (text.indexOf(marker) !== -1) {
-    const startIndex = text.indexOf(marker);
-    lines = text.slice(startIndex).split('\n').slice(1).map(l => l.trim()).filter(l => l.length > 0);
-  } else {
-    lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  let lines = rawLines;
+  if (rawLines.findIndex(l => l.includes(marker)) !== -1) {
+    const startIndex = rawLines.findIndex(l => l.includes(marker));
+    if (startIndex !== -1) {
+      lines = rawLines.slice(startIndex + 1);
+    }
   }
 
   const x = [], y = [];
   for (const l of lines) {
-    // skip common non-data lines
+    // Skip header lines that start with letters or #
     if (/^[A-Za-z#]/.test(l)) continue;
-    // normalize decimal comma -> dot
+
+    // Convert European decimal format (comma) to standard (dot)
     const cleaned = l.replace(/,/g, '.');
+    
+    // Split by tab, comma, semicolon or whitespace
     const parts = cleaned.split(/\t|,|;|\s+/).filter(Boolean);
+    
     if (parts.length < 2) continue;
+    
     const a = parseFloat(parts[0]);
     const b = parseFloat(parts[1]);
+    
     if (!isNaN(a) && !isNaN(b)) {
       x.push(a);
       y.push(b);
