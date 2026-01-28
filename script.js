@@ -170,6 +170,12 @@ async function renderPigment() {
       }
     }
 
+    // If no files found, remove this section and skip to next instrument
+    if (!files || files.length === 0) {
+      section.remove();
+      continue;
+    }
+
     // ensure cache structure
     dataCache[pigment] = dataCache[pigment] || {};
     dataCache[pigment][instrument] = dataCache[pigment][instrument] || {};
